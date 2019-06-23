@@ -19,7 +19,7 @@ object OrganisingImplicits extends App{
   //Exercise
   case class Person(name: String, age: Int)
 
-  implicit val stringOrdering: Ordering[Person] = Ordering.fromLessThan((a, b) => a.name.compareTo(b.name) < 0)
+  implicit val alphabeticalOrdering: Ordering[Person] = Ordering.fromLessThan((a, b) => a.name.compareTo(b.name) < 0)
 
   val persons = List(
     Person("Steve", 30),

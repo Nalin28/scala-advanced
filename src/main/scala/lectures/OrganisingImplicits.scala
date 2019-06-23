@@ -91,7 +91,8 @@ object OrganisingImplicits extends App{
   val list = List(
     Purchase(5,2.5),
     Purchase(3, 71),
-    Purchase(7, 24.5)
+    Purchase(7, 24.5),
+    Purchase(10, 20)
   )
 
 

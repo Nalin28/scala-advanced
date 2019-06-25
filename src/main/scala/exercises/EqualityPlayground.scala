@@ -31,7 +31,7 @@ object EqualityPlayground extends App{
 
   val anotherJohn = User("John", 45, "yo.yo")
 
-  println(Equal(john, anotherJohn))
+  //println(Equal(john, anotherJohn))
 
   /*
   Exercise - improve the Equal TC with an implicit conversion class
@@ -55,7 +55,7 @@ object EqualityPlayground extends App{
   /*
   TYPE SAFE
    */
-  println(john == 43) // correct
+  //println(john == 43) // correct
   //println(john === 43) // type safe since I cant even compile this
 
 

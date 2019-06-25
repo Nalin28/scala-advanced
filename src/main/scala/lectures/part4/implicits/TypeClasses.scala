@@ -39,7 +39,7 @@ trait HTMLWritable{
     override def serialize(user: User): String = s"<div>${user.name} (${user.age} yo) <a href=${user.email}/></div>"
   }
   val john = User("John", 22, "john.snow")
-  println(UserSerializer.serialize(john))
+  println(HTMLSerializer.serialize(john))
 
   //1 - we can define serializers for other types
   import java.util.Date

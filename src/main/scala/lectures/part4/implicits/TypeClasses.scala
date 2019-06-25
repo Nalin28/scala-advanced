@@ -94,5 +94,23 @@ trait HTMLWritable{
   - conversion with implicit classes --- HTMLEnrichment
    */
 
+  //context bounds
+  def htmlBoilerPlate[T](content: T)(implicit serializer: HTMLSerializer[T]): String =
+    s"<html><body>${content.toHTML(serializer)}</body></html>"
+  // or
+  def htmlSugar[T: HTMLSerializer](content: T): String = {
+    val serializer = implicitly[HTMLSerializer[T]]
+    // use serializer
+    s"<html><body>${content.toHTML(serializer)}</body></html>"
+    // now we can explicitly use the serializer API
+  }
+
+  // implicitly
+case class Permissions(mask: String)
+  implicit val defaultPermissions: Permissions = Permissions("0774")
+
+  // in some other part of the code
+  val standardPerms = implicitly[Permissions] // to surface the implicit being used
+
 }
 

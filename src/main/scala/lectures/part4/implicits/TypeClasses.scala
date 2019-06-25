@@ -61,6 +61,7 @@ trait HTMLWritable{
   object HTMLSerializer{
     def serialize[T](value: T)(implicit serializer: HTMLSerializer[T]): String =
       serializer.serialize(value)
+    def apply[T](implicit serializer: HTMLSerializer[T]) = serializer //#
   }
 
   implicit object IntSerializer extends HTMLSerializer[Int]{
@@ -70,6 +71,28 @@ trait HTMLWritable{
   println(HTMLSerializer.serialize(42))
   println(HTMLSerializer.serialize(john))
 
+  //access to the entire type class interface
+  println(HTMLSerializer[User].serialize(john)) //#
+
+  // part 3
+  implicit class HTMLEnrichment[T](value: T){
+    def toHTML(implicit serializer: HTMLSerializer[T]): String = serializer.serialize(value)
+  }
+
+  println(john.toHTML) // println(new HTMLEnrichment[User](john).toHTML(UserSerialize))
+/*
+  - extend to any new type
+  - choose implementation
+  - super expressive
+ */
+
+  println(2.toHTML)
+  println(john.toHTML(PartialUserSerializer)) // flexible
+  /*
+  - type class itself --- HTMLSerializer[T] { ... }
+  - type class instances (some of which are implicit) --- UserSerializer, IntSerializer
+  - conversion with implicit classes --- HTMLEnrichment
+   */
 
 }
 

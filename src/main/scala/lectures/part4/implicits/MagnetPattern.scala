@@ -122,7 +122,7 @@ object MagnetPattern extends App{
   }
   def sideEffectMethod(): String ={
     println("Hello Scala")
-    "hahaha" 
+    "hahaha"
   }
 
   handle(sideEffectMethod())

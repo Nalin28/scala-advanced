@@ -57,22 +57,6 @@ trait HTMLWritable{
     def action(value: T): String
   }
 
-  /*
-  Equality
-   */
-
-  trait Equal[T]{
-    def equal(a: T, b: T): Boolean
-  }
-
-  implicit object NameEqual extends Equal[User]{
-    override def equal(a: User, b: User): Boolean = a.name == b.name
-  }
-
-  object NameAndEmailEqual extends Equal[User]{
-    override def equal(a: User, b: User): Boolean = a.name == b.name && a.email == b.email
-  }
-
   // part 2
   object HTMLSerializer{
     def serialize[T](value: T)(implicit serializer: HTMLSerializer[T]): String =
@@ -86,18 +70,6 @@ trait HTMLWritable{
   println(HTMLSerializer.serialize(42))
   println(HTMLSerializer.serialize(john))
 
-  /*
-  Exercise: Implement the TC pattern for the Equality tc.
-   */
 
-  object Equal{
-    def equal[T](a: T, b: T)(implicit equalizer: Equal[T]): Boolean = equalizer.equal(a, b)
-  }
-
-  val anotherJohn = User("John", 45, "yo.yo")
-
-  println(Equal(john, anotherJohn))
-
-  // AD-HOC polymorphism -
 }
 

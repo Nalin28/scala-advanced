@@ -19,7 +19,12 @@ object EqualityPlayground {
   object NameAndEmailEqual extends Equal[User]{
     override def equal(a: User, b: User): Boolean = a.name == b.name && a.email == b.email
   }
+  /*
+    Exercise: Implement the TC pattern for the Equality tc.
+     */
 
+
+  // AD-HOC polymorphism -
   object Equal{
     def equal[T](a: T, b: T)(implicit equalizer: Equal[T]): Boolean = equalizer.equal(a, b)
   }

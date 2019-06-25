@@ -122,7 +122,7 @@ object MagnetPattern extends App{
   }
   def sideEffectMethod(): String ={
     println("Hello Scala")
-    "hahaha" // new StringHandle("hahaha")
+    "hahaha" 
   }
 
   handle(sideEffectMethod())
@@ -130,6 +130,7 @@ object MagnetPattern extends App{
   handle{
     println("Hello, Scala")
     "hahaha" // only this value is implicitly called but not the side effect
+    // new StringHandle("hahaha")
   }
 
 }

@@ -69,7 +69,7 @@ object RockingInheritance extends App{
     def print = println("Red")
   }
 
-  class White extends Red with Green with Blue{ // AnyRef
+  class White extends Red with Green with Blue{ // AnyRef with <Red> with <Cold> with <Green> with <Blue> with <White>
     override def print: Unit = {
       println("White")
       super.print

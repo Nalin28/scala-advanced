@@ -48,5 +48,51 @@ object Reflection extends App{
   // 5 - invoke the method
 
   method.apply()
+
+  // type erasure
+
+  // pp #1 : differentiate types at runtime -> at compile time generic types are erased
+  val numbers = List(1,2,3)
+  numbers match{
+    case listOfStrings: List[String] => println("list of strings")
+    case listOfNumbers: List[Int] => println("list of numbers")
+  }
+  // we get list of strings because the compiler will not differentiate between generics
+
+  // pp #2 : limitations on overloads
+  // def processList(list: List[Int]): Int = 43
+  // def processList(list: List[String]): Int= 45
+
+  // TypeTags
+  import ru._
+
+  val ttag = typeTag[Person]
+  println(ttag.tpe)
+
+  class MyMap[K, V]
+
+  def getTypeArguments[T](value: T)(implicit typeTag: TypeTag[T]) = typeTag.tpe match{
+    case TypeRef(_, _, typeArguments) => TypeArgument
+    case _ => List()
+  }
+
+  val myMap = new MyMap[Int, String]
+  val typeArgs = getTypeArguments(myMap) // (typeTag: TypeTag[MyMap[Int, String]])
+  println(typeArgs)
+
+  def isSubtype[A, B](implicit ttagA: TypeTag[A], ttagB: TypeTag[B]): Boolean ={
+    ttagA.tpe <: ttagB.tpe
+  }
+
+  class Animal
+  class Dog extends Animal
+  println(isSubtype[Dog, Animal])
+
+  // 3 - method symbol
+  val anotherMethodSymbol = typeTag[Person],tpe.decl(ru.TermName(methodName)).asMethod
+  // 4 - reflect the method
+  val sameMethod = reflected.reflectMethod(anotherMethodSymbol)
+  // 5 - invoke the method
+  sameMethod.apply()
   
 }
